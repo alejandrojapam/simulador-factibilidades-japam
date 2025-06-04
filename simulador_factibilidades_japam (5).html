@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Factibilidades JAPAM</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      font-size: 16px;
+    }
+    .resultado {
+      margin-top: 20px;
+      background: #e0ffe0;
+      padding: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Simulador de Costo de Factibilidad - JAPAM</h2>
+    <label for="derecho">Derecho base (en UMA):</label>
+    <input type="number" id="derecho" placeholder="Ej. 10" />
+
+    <label for="valorUMA">Valor actual de la UMA (MXN):</label>
+    <input type="number" id="valorUMA" placeholder="Ej. 113.14" value="113.14" />
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="resultado" id="resultado" style="display:none"></div>
+  </div>
+
+  <script>
+    function calcular() {
+      const derecho = parseFloat(document.getElementById('derecho').value);
+      const valorUMA = parseFloat(document.getElementById('valorUMA').value);
+
+      if (isNaN(derecho) || isNaN(valorUMA)) {
+        alert('Por favor ingresa valores válidos.');
+        return;
+      }
+
+      const subtotal = derecho * valorUMA;
+      const iva = subtotal * 0.16;
+      const total = subtotal + iva;
+
+      document.getElementById('resultado').style.display = 'block';
+      document.getElementById('resultado').innerHTML =
+        `<strong>Subtotal:</strong> $${subtotal.toFixed(2)} MXN<br>
+         <strong>IVA (16%):</strong> $${iva.toFixed(2)} MXN<br>
+         <strong>Total a pagar:</strong> <span style="font-size: 18px">$${total.toFixed(2)} MXN</span>`;
+    }
+  </script>
+</body>
+</html>
